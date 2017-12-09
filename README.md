@@ -54,7 +54,7 @@ wss://asr.yuzhix.com/api/DecodeAudio?access_id=xxxxx&nonce_str=yyyyy&uuid=0000&s
 ### 识别结果返回
 请求结果以application/json格式在Response Body中返回；其他的HTTP错误码表示识别失败，具体的错误消息以application/json格式在Response Body中返回。
 
-####  __ 识别成功 __
+####  __识别成功__
 
 
  | 名称 | 类型 | 说明 |
@@ -69,7 +69,7 @@ wss://asr.yuzhix.com/api/DecodeAudio?access_id=xxxxx&nonce_str=yyyyy&uuid=0000&s
 }
 ```
 
-####  __ 识别失败 __
+####  __识别失败__
 
 
  | 名称 | 类型 | 说明 |
@@ -78,7 +78,7 @@ wss://asr.yuzhix.com/api/DecodeAudio?access_id=xxxxx&nonce_str=yyyyy&uuid=0000&s
  | error_code | string | 错误代码 |
  | error_msg | string | 具体错误信息 |
  
- * __ Sample __
+ * __Sample__
  ```
  {
     "request_id":"request_sample_0",
@@ -87,15 +87,15 @@ wss://asr.yuzhix.com/api/DecodeAudio?access_id=xxxxx&nonce_str=yyyyy&uuid=0000&s
 }
 ```
 
- * __ 错误代码定义 __
+ *  __错误代码定义__
 
 
  | 错误码 | 语义 |
- |------|------|------|
+ |------|------|
  | 1 | 无法识别有效音频 |
  | 2 | 身份验证失败 |
  | 3 | 调用过于频繁 |
  
- ### _ 注意事项 _
+ ### _注意事项_
  1. FFASR现处于邀请测试阶段，希望申请测试的用户请发邮件至 bigvan@yuzhix.com
  1. 用户不宜过于频繁调用接口，现阶段支持单个access_id的调用频率不得高于1次/秒
