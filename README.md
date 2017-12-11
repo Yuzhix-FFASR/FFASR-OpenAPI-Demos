@@ -18,7 +18,7 @@
 ### 报头信息
   报头信息需要包括以下字段：
   
-  * __uuid__ : 当前连接的全局唯一标识符
+  *  __request\_id__ : 当前连接的全局唯一标识符
   * __online  true/false__ 该音频是否是在线音频，在线音频即为正在录制的音频; 离线音频为单个的pcm/wav文件。目前仅支持在线音频。
   
 ### 身份认证机制
@@ -40,7 +40,7 @@
 ```
   3. 将access_key拼接至末尾： (假设access_key为123456)
 ```
-        StringA="access_id=xxxxxx&nonce_str=yyyyyy&uuid=000000"  //参数名按ascii排序
+        StringA="access_id=xxxxxx&nonce_str=yyyyyy&request_id=000000"  //参数名按ascii排序
         SignTempString = StringA + "&key=123456"
 ```
   4.    生成md5签名，即:
