@@ -95,6 +95,8 @@ wss://asr.yuzhix.com/api/DecodeAudio?access_id=xxxxx&nonce_str=yyyyy&uuid=0000&s
  | 1 | 无法识别有效音频 |
  | 2 | 身份验证失败 |
  | 3 | 调用过于频繁 |
+ | 4 | 服务器忙 |
+ | 5 | 内部错误 |
  
  ### _注意事项_
  1. FFASR现处于邀请测试阶段，希望申请测试的用户请发邮件至 bigvan@yuzhix.com
