@@ -75,7 +75,7 @@ public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
         URI uri = new URI(url);
         String scheme = uri.getScheme() == null ? "wss" : uri.getScheme();
 
-        //必须使用SSL连接，默认使用8443端口
+        //必须使用SSL连接，默认使用443端口
         final String host = uri.getHost();
         final int port= uri.getPort()==-1 ? 443:uri.getPort();
         if (!"wss".equalsIgnoreCase(scheme)) {
