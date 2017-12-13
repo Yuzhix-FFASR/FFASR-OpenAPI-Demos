@@ -50,7 +50,7 @@ public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
         String accessKey = "d628ee2f5a464f5897ea3453b7027f18";
 
         //本次音频的request_id,替换成自己实际的取值
-        String request_id = "TEST123";
+        String requestId = "TEST123";
 
         //长度为10的随机字符串
         String nonceStr = randomString(10);
@@ -58,17 +58,17 @@ public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
         //进行签名的字符串，生成方法是将所有参数按首字母顺序排序后拼接在一起，再在最后加上accessKey的值
         String signStr = "access_id="+accessId
                 + "&nonce_str=" + nonceStr
-                + "&request_id=" + request_id
+                + "&request_id=" + requestId
                 + "&key=" + accessKey;
 
         //计算md5后的签名
         String sign = encode(signStr);
 
         //最终发送请求的地址串
-        String url = "wss://asr.yuzhix.com:8443/api/DecodeAudio?"
+        String url = "wss://asr.yuzhix.com/api/DecodeAudio?"
                 +"access_id="+accessId
                 + "&nonce_str=" + nonceStr
-                + "&request_id=" + request_id
+                + "&request_id=" + requestId
                 + "&sign=" + sign;
 
 
@@ -77,7 +77,7 @@ public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
 
         //必须使用SSL连接，默认使用8443端口
         final String host = uri.getHost();
-        final int port= uri.getPort();
+        final int port= uri.getPort()==-1 ? 443:uri.getPort();
         if (!"wss".equalsIgnoreCase(scheme)) {
             System.err.println("Only WSS is supported.");
             return;
@@ -99,9 +99,7 @@ public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
             final YaeDemoClient handler =
                     new YaeDemoClient(
                             WebSocketClientHandshakerFactory.newHandshaker(
-                                    uri, WebSocketVersion.V13, null, true, new DefaultHttpHeaders()
-                                            //header中也加入request_id，用于验证一致性
-                                            .set("request_id", request_id)
+                                    uri, WebSocketVersion.V13, null, true, new DefaultHttpHeaders()     
                                             //是否为在线音频，预留参数，目前只支持true
                                             .set("online", true)));
 
