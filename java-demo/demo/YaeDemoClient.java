@@ -1,5 +1,3 @@
-package yae.client;
-
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -18,7 +16,6 @@ import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import io.netty.util.AttributeKey;
 import io.netty.util.CharsetUtil;
-import io.netty.util.internal.StringUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -144,7 +141,7 @@ public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
                 }else{
                      Thread.sleep(5000);
                      //音频发完后五秒依然没有收到回复，直接发送关闭消息并退出连接
-                     if(!(boolean)ch.attr(AttributeKey.valueOf("response")).get()){
+                     if(!(Boolean) ch.attr(AttributeKey.valueOf("response")).get()){
                           ch.writeAndFlush(new CloseWebSocketFrame());
                           break;
                      }
