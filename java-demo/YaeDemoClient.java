@@ -248,7 +248,14 @@ public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
             int index = random.nextInt(str.length());
             char c = str.charAt(index);
             stringBuffer.append(c);
-        }
+        }else{
+             Thread.sleep(5000);
+             //音频发完后五秒依然没有收到回复，直接发送关闭消息并退出连接
+             if(!(boolean)ch.attr(AttributeKey.valueOf("response")).get()){
+                 ch.writeAndFlush(new CloseWebSocketFrame());
+                 break;
+                 }
+             }
 
         return stringBuffer.toString();
     }
