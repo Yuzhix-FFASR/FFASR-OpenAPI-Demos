@@ -133,22 +133,18 @@ public class YaeDemoClientOffline extends SimpleChannelInboundHandler<Object> {
             int length;
 
             //在WebSocketClientHandler.java中接收回复并设置了response的值，如果该值为true则为已收到回复，不再继续发送音频
-            while (!(Boolean) ch.attr(AttributeKey.valueOf("response")).get()) {
-                if ((length = fis.read(sendBytes, 0, sendBytes.length)) > 0) {
-                    ByteBuf byteBuf = Unpooled.buffer(length);
-                    byteBuf.writeBytes(sendBytes, 0, length);
-                    ch.writeAndFlush(new BinaryWebSocketFrame(byteBuf));
-                } else {
+            while ((length = fis.read(sendBytes, 0, sendBytes.length)) > 0) {
+                ByteBuf byteBuf = Unpooled.buffer(length);
+                byteBuf.writeBytes(sendBytes, 0, length);
+                ch.writeAndFlush(new BinaryWebSocketFrame(byteBuf));
+            }
 
-                    //文件发送完毕后，发送一个包含任意内容的文本帧告知服务器发送完毕
-                    ch.writeAndFlush(new TextWebSocketFrame("finish!"));
-                    Thread.sleep(5000);
-                    //音频发完后五秒依然没有收到回复，直接发送关闭消息并退出连接
-                    if (!(Boolean) ch.attr(AttributeKey.valueOf("response")).get()) {
-                        ch.writeAndFlush(new CloseWebSocketFrame());
-                        break;
-                    }
-                }
+            //文件发送完毕后，发送一个包含任意内容的文本帧告知服务器发送完毕
+            ch.writeAndFlush(new TextWebSocketFrame("finish!"));
+            Thread.sleep(5000);
+            //音频发完后五秒依然没有收到回复，直接发送关闭消息并退出连接
+            if (!(Boolean) ch.attr(AttributeKey.valueOf("response")).get()) {
+                ch.writeAndFlush(new CloseWebSocketFrame());
 
             }
 
@@ -208,8 +204,6 @@ public class YaeDemoClientOffline extends SimpleChannelInboundHandler<Object> {
         if (frame instanceof TextWebSocketFrame) {
             TextWebSocketFrame textFrame = (TextWebSocketFrame) frame;
             System.out.println("WebSocket Client received message: " + textFrame.text());
-            //已收到回复，标记后不再发送音频
-            ch.attr(AttributeKey.valueOf("response")).set(true);
         } else if (frame instanceof CloseWebSocketFrame) {
             System.out.println("WebSocket Client received closing");
         }
