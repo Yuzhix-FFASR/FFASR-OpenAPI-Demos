@@ -80,7 +80,7 @@ wss://asr.yuzhix.com/api/DecodeAudio?access_id=xxxxx&nonce_str=yyyyy&uuid=0000&s
  | error_code | string | 错误代码 |
  | error_msg | string | 具体错误信息 |
  
- *  __Sample__
+ * __Sample__
  ```
  {
     "request_id":"request_sample_0",
