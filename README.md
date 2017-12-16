@@ -30,7 +30,7 @@
  |------|------|------|
  | access_id | string | 客户id |
  | nonce_str | string | 32位随机字符串 |
- | request_id | string | 识别请求id，该uuid应与报文头的uuid一致  |
+ | request_id | string | 识别请求id  |
  | sign | string | 连接参数的md5签名，相见 __签名生成规则__ |
  
 ##### 签名生成规则：
