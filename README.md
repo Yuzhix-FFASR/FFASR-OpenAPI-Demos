@@ -63,7 +63,8 @@ wss://asr.yuzhix.com/api/DecodeAudio?access_id=xxxxx&nonce_str=yyyyy&uuid=0000&s
  |------|------|------|
  | request_id | string | 识别请求id |
  | result | string | 识别结果 |
- * __ Sample __
+ 
+ * __Sample__
 ```
 {
     "request_id":"request_sample_0",
@@ -80,7 +81,9 @@ wss://asr.yuzhix.com/api/DecodeAudio?access_id=xxxxx&nonce_str=yyyyy&uuid=0000&s
  | error_code | string | 错误代码 |
  | error_msg | string | 具体错误信息 |
  
- * __Sample__
+ 
+ *  __Sample__
+ 
  ```
  {
     "request_id":"request_sample_0",
@@ -89,7 +92,7 @@ wss://asr.yuzhix.com/api/DecodeAudio?access_id=xxxxx&nonce_str=yyyyy&uuid=0000&s
 }
 ```
 
- *  __错误代码定义__
+ * __错误代码定义__
 
 
  | 错误码 | 语义 |
