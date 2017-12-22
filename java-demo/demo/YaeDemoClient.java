@@ -36,16 +36,16 @@ public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
     /**
      * MD5字符
      */
-    private static final char[] HEX_DIGITS = { '0', '1', '2', '3', '4', '5',
-            '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5',
+            '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
     public static void main(String[] args) throws Exception {
 
         //替换成用户实际的accessId
-        String accessId = "test";
+        String accessId = "";
 
         //替换成用户实际的accessKey
-        String accessKey = "d628ee2f5a464f5897ea3453b7027f18";
+        String accessKey = "";
 
         //本次音频的request_id,替换成自己实际的取值
         String requestId = UUID.randomUUID().toString();
@@ -54,7 +54,7 @@ public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
         String nonceStr = randomString(10);
 
         //进行签名的字符串，生成方法是将所有参数按首字母顺序排序后拼接在一起，再在最后加上accessKey的值
-        String signStr = "access_id="+accessId
+        String signStr = "access_id=" + accessId
                 + "&nonce_str=" + nonceStr
                 + "&request_id=" + requestId
                 + "&key=" + accessKey;
@@ -64,7 +64,7 @@ public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
 
         //最终发送请求的地址串
         String url = "wss://asr.yuzhix.com/api/DecodeAudio?"
-                +"access_id="+accessId
+                + "access_id=" + accessId
                 + "&nonce_str=" + nonceStr
                 + "&request_id=" + requestId
                 + "&sign=" + sign;
@@ -75,7 +75,7 @@ public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
 
         //必须使用SSL连接，默认使用443端口
         final String host = uri.getHost();
-        final int port= uri.getPort()==-1 ? 443:uri.getPort();
+        final int port = uri.getPort() == -1 ? 443 : uri.getPort();
         if (!"wss".equalsIgnoreCase(scheme)) {
             System.err.println("Only WSS is supported.");
             return;
@@ -97,7 +97,7 @@ public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
             final YaeDemoClient handler =
                     new YaeDemoClient(
                             WebSocketClientHandshakerFactory.newHandshaker(
-                                    uri, WebSocketVersion.V13, null, true, new DefaultHttpHeaders()     
+                                    uri, WebSocketVersion.V13, null, true, new DefaultHttpHeaders()
                                             //是否为在线音频，预留参数，目前只支持true
                                             .set("online", true)));
 
@@ -134,19 +134,19 @@ public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
             int length;
 
             //在WebSocketClientHandler.java中接收回复并设置了response的值，如果该值为true则为已收到回复，不再继续发送音频
-            while(!(Boolean) ch.attr(AttributeKey.valueOf("response")).get()){
+            while (!(Boolean) ch.attr(AttributeKey.valueOf("response")).get()) {
                 if ((length = fis.read(sendBytes, 0, sendBytes.length)) > 0) {
                     ByteBuf byteBuf = Unpooled.buffer(length);
-                    byteBuf.writeBytes(sendBytes,0,length);
+                    byteBuf.writeBytes(sendBytes, 0, length);
                     ch.writeAndFlush(new BinaryWebSocketFrame(byteBuf));
-                }else{
-                     Thread.sleep(5000);
-                     //音频发完后五秒依然没有收到回复，直接发送关闭消息并退出连接
-                     if(!(Boolean) ch.attr(AttributeKey.valueOf("response")).get()){
-                          ch.writeAndFlush(new CloseWebSocketFrame());
-                          break;
-                     }
-                 }
+                } else {
+                    Thread.sleep(5000);
+                    //音频发完后五秒依然没有收到回复，直接发送关闭消息并退出连接
+                    if (!(Boolean) ch.attr(AttributeKey.valueOf("response")).get()) {
+                        ch.writeAndFlush(new CloseWebSocketFrame());
+                        break;
+                    }
+                }
 
             }
 
@@ -224,7 +224,7 @@ public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
     }
 
 
-    public static String encode(final String password) throws Exception{
+    public static String encode(final String password) throws Exception {
         if (password == null) {
             return null;
         }
