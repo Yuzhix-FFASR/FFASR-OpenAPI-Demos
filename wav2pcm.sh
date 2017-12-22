@@ -2,7 +2,8 @@
 
 if [ $# -lt 2 ]; then
     echo "too few arguments."
-    echo "./wav2pcm.sh <wav_dir> <out_pcm_dir>"
+    echo "Usage:"
+    echo "  ./wav2pcm.sh <wav_dir> <out_pcm_dir>"
     exit 1;
 fi
 
