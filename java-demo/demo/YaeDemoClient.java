@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.net.URI;
 import java.security.MessageDigest;
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * YAE ASR Demo
@@ -47,7 +48,7 @@ public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
         String accessKey = "d628ee2f5a464f5897ea3453b7027f18";
 
         //本次音频的request_id,替换成自己实际的取值
-        String requestId = "TEST123";
+        String requestId = UUID.randomUUID().toString();
 
         //长度为10的随机字符串
         String nonceStr = randomString(10);
