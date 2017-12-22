@@ -20,7 +20,7 @@
   
   *  __online  true/false__ 是否使用在线识别模式
   
- > __在线识别__ 指前端通过拾音设备将单通道音频实时传给ffasr进行识别； __离线识别__ 指发送音频文件给ffasr进行识别，离线识别将不会有VAD((Voice Activity Detection)的判断。 （为保持长连接，进行离线音频测试时，发送文件完毕后需要增加发送一段TextMessage,具体可参考离线 demo）
+ > __在线识别__ 指前端通过拾音设备将单通道音频实时传给ffasr进行识别； __离线识别__ 指发送音频文件给ffasr进行识别，离线识别将不会有VAD(Voice Activity Detection)的判断。 （为保持长连接，进行离线音频测试时，发送文件完毕后需要增加发送一段TextMessage,具体可参考离线 demo）
  
  
 ### 身份认证机制
