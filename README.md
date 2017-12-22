@@ -106,3 +106,6 @@ wss://asr.yuzhix.com/api/DecodeAudio?access_id=xxxxx&nonce_str=yyyyy&uuid=0000&s
  ### _注意事项_
  1. FFASR现处于邀请测试阶段，希望申请测试的用户请发邮件至 bigvan@yuzhix.com
  1. 用户不宜过于频繁调用接口，现阶段支持单个access_id的调用频率不得高于1次/秒
+
+ ### _附件_
+ * wav2pcm.sh 此脚本可指定目录内的所有wav文件转换成目标目录下的pcm文件
