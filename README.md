@@ -12,14 +12,17 @@
   为确保数据安全，服务器只接受wss请求(Websocket + SSL)。请求内容包含：
 
   * 请求参数 （用于进行身份验证，参见 __身份验证机制__ ）
-  - 报头 （用于告知asr音频相关信息， 参见 __报头信息__ ）
-  - 二进制的报文Body（Audio buffer， __单通道音频, 16bit, 采样率16KHz__ ） 
+  - 报头 （用于告知asr音频相关信息， 参见 __报头信息__ ）
+  - 二进制的报文Body（Audio buffer， __单通道音频, 16bit, 采样率16KHz__ ） 
 
 ### 报头信息
   报头信息仅需包含以下字段:
-  
-  * __online  true/false__ 该音频是否是在线音频，在线音频即为正在录制的音频; 离线音频为单个的pcm/wav文件。目前仅支持在线音频。
   
+  *  __online  true/false__ 是否使用在线识别模式
+  
+ > __在线识别__ 指前端通过拾音设备将单通道音频实时传给ffasr进行识别； __离线识别__ 指发送音频文件给ffasr进行识别，离线识别将不会有VAD(Voice Activity Detection)的判断。 （为保持长连接，进行离线音频测试时，发送文件完毕后需要增加发送一段TextMessage,具体可参考离线 demo）
+ 
+ 
 ### 身份认证机制
   调用FFASR前需经过严格的鉴权验证。在处理用户请求前，服务端会通过请求参数进行签名校验以确保用户请求在传输过程中没有被恶意篡改或替换。客户端将下列字段以请求参数的形式传递给服务器以便完成身份信息校验：
 
@@ -27,7 +30,7 @@
  |------|------|------|
  | access_id | string | 客户id |
  | nonce_str | string | 32位随机字符串 |
- | request_id | string | 识别请求id，该uuid应与报文头的uuid一致  |
+ | request_id | string | 识别请求id  |
  | sign | string | 连接参数的md5签名，相见 __签名生成规则__ |
  
 ##### 签名生成规则：
@@ -60,7 +63,8 @@ wss://asr.yuzhix.com/api/DecodeAudio?access_id=xxxxx&nonce_str=yyyyy&uuid=0000&s
  |------|------|------|
  | request_id | string | 识别请求id |
  | result | string | 识别结果 |
- * __ Sample __
+ 
+ * __Sample__
 ```
 {
     "request_id":"request_sample_0",
@@ -77,7 +81,9 @@ wss://asr.yuzhix.com/api/DecodeAudio?access_id=xxxxx&nonce_str=yyyyy&uuid=0000&s
  | error_code | string | 错误代码 |
  | error_msg | string | 具体错误信息 |
  
- * __Sample__
+ 
+ *  __Sample__
+ 
  ```
  {
     "request_id":"request_sample_0",
@@ -86,7 +92,7 @@ wss://asr.yuzhix.com/api/DecodeAudio?access_id=xxxxx&nonce_str=yyyyy&uuid=0000&s
 }
 ```
 
- *  __错误代码定义__
+ * __错误代码定义__
 
 
  | 错误码 | 语义 |
