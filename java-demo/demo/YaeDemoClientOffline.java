@@ -26,7 +26,8 @@ import java.util.UUID;
 
 /**
  * YAE ASR Demo
- * 本Demo用Netty实现WebSocket连接，并返回相应的字符串
+ * 本Demo用Netty实现WebSocket连接，并返回相应的字符串，识别的是离线音频流
+ * 在使用时，请加入自己的accessId、accessKey和requestId
  */
 public class YaeDemoClientOffline extends SimpleChannelInboundHandler<Object> {
 

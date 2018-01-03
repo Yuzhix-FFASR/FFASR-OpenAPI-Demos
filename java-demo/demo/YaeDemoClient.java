@@ -26,7 +26,8 @@ import java.util.UUID;
 
 /**
  * YAE ASR Demo
- * 本Demo用Netty实现WebSocket连接，并返回相应的字符串
+ * 本Demo用Netty实现WebSocket连接，并返回相应的字符串，识别的是在线音频流
+ * 在使用时，请加入自己的accessId、accessKey和requestId
  */
 public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
 
@@ -228,7 +229,7 @@ public class YaeDemoClient extends SimpleChannelInboundHandler<Object> {
         if (password == null) {
             return null;
         }
-        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+        MessageDigest messageDigest = MessageDigest.getInstance("MD5");
         messageDigest.update(password.getBytes());
         final byte[] digest = messageDigest.digest();
         return getFormattedText(digest);
