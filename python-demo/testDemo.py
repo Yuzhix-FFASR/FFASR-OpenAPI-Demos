@@ -1,8 +1,8 @@
 # coding:utf-8
-# 请提前安装第三方库websocket-client
+# 请提前安装第三方库websocket-client(pip install websocket-client)
 # access_id 与 access_ke 已留空，填入即可
-# 运行时请放入wav所在文件夹内, 脚本会自行生成目录文件WavList.txt
-
+# 运行时请把pcm文件放入test-case文件夹内
+# 脚本会自行生成目录文件wavlist.txt
 
 import thread
 import time
@@ -14,8 +14,8 @@ import os
 import sys
 
 
-access_id = ""
-access_key = ""
+access_id = "在此填入access_id"
+access_key = "在此填入access_key"
 url = "wss://asr.yuzhix.com/api/DecodeAudio?"
 
 
@@ -56,34 +56,27 @@ def makeURL(access_id, access_key):
     return turl
 
 
-def makeWavList():
-    # 打印当前目录内*.pcm文件到WavList.txt
-    reload(sys)
-    sys.setdefaultencoding('utf-8')
-    output = open("WavList.txt", "w")
-    pwd = os.listdir(os.getcwd())
-    for path in pwd:
-        if os.path.isfile(path) and path[-4:] == ".pcm":
-            output.write("%s/%s\n" % (sys.path[0], path))
-    output.close()
-
-
 def decode(rec):
     # 调整输出格式
     result = rec
     return json.dumps(json.loads(result), ensure_ascii=False, indent=4)
 
 
+def testCase():
+    # 找到test-case文件夹
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
+    return os.path.dirname(os.getcwd()) + "/test-case"
+
+
 def main():
-    makeWavList()
-    input = open("WavList.txt", "r")
-    output = open("Result.txt", "w")
     testNum = 0
     test = Clinent()
-    try:
-        for line in input:
+    wavPath = testCase()
+    for pcm in os.listdir(wavPath):
+        if pcm[-4:] == ".pcm":
             testNum = testNum + 1
-            path = line.replace('\n', '')
+            path = wavPath + "/" + pcm
             turl = makeURL(access_id, access_key)
             test.create_connection(turl)
             file = open(path, "rb")
@@ -91,9 +84,6 @@ def main():
             test.send(content)
             result = test.recv()
             print("Test%d :%s\n%s\n" % (testNum, path, decode(result)))
-    finally:
-        input.close()
-    output.close()
 
 
 if __name__ == '__main__':
