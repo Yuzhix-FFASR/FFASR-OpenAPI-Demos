@@ -1,4 +1,5 @@
 # coding:utf-8
+# 请提前安装第三方库websocket-client
 # access_id 与 access_ke 已留空，填入即可
 # 运行时请放入wav所在文件夹内, 脚本会自行生成目录文件WavList.txt
 # 结果输出在Result.txt
