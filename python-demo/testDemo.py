@@ -2,7 +2,6 @@
 # 请提前安装第三方库websocket-client
 # access_id 与 access_ke 已留空，填入即可
 # 运行时请放入wav所在文件夹内, 脚本会自行生成目录文件WavList.txt
-# 结果输出在Result.txt
 
 
 import thread
@@ -13,6 +12,7 @@ import json
 import uuid
 import os
 import sys
+
 
 access_id = ""
 access_key = ""
@@ -84,15 +84,13 @@ def main():
         for line in input:
             testNum = testNum + 1
             path = line.replace('\n', '')
-            print("Test%d :%s" % (testNum, path))
-            output.write("Test%d :%s\n" % (testNum, path))
             turl = makeURL(access_id, access_key)
             test.create_connection(turl)
             file = open(path, "rb")
             content = file.read()
             test.send(content)
             result = test.recv()
-            output.write("%s\n" % (decode(result)))
+            print("Test%d :%s\n%s\n" % (testNum, path, decode(result)))
     finally:
         input.close()
     output.close()
