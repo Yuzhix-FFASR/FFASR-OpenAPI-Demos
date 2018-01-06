@@ -16,7 +16,7 @@ access_key = ""
 url = "wss://asr.yuzhix.com/api/DecodeAudio?"
 
 
-class Clinent():
+class Client():
     def __init__(self):
         pass
 
@@ -27,10 +27,16 @@ class Clinent():
 
     def send(self, content):
         # 间隔1s发送请求
-        time.sleep(1)
-        self.ws.send_binary(content)
-        #  文件发送完毕后，发送一个包含任意内容的文本帧告知服务器发送完毕
+        
+        offset=0
+        while offset<len(content):
+            size=6400
+            if (len(content)-offset<size):
+                size = len(content)-offset
+            self.ws.send_binary(content[offset:offset+size])
+            offset+=size
         self.ws.send("finish!")
+        time.sleep(1)
 
     def recv(self):
         # 接收
@@ -67,7 +73,7 @@ def testCase():
 
 def main():
     testNum = 0
-    test = Clinent()
+    test = Client()
     wavPath = testCase()
     for pcm in os.listdir(wavPath):
         if pcm[-4:] == ".pcm":
@@ -77,6 +83,9 @@ def main():
             test.create_connection(turl)
             file = open(path, "rb")
             content = file.read()
+            offset = 0
+            '''
+                '''
             test.send(content)
             result = test.recv()
             print("Test%d :%s\n%s\n" % (testNum, path, decode(result)))

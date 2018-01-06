@@ -12,7 +12,7 @@ import os
 import sys
 
 access_id = ""
-access_key = ""
+access_key = "" 
 url = "wss://asr.yuzhix.com/api/DecodeAudio?"
 
 
