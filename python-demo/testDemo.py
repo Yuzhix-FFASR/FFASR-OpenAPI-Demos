@@ -1,10 +1,9 @@
-# coding:utf-8
-# 请提前安装第三方库websocket-client(pip install websocket-client)
+# -*- coding: utf-8 -*-
+# 请提前安装第三方库websocket-client(pip3 install websocket-client)
 # access_id 与 access_ke 已留空，填入即可
 # 运行时请把pcm文件放入test-case文件夹内
 # 脚本会自行生成目录文件wavlist.txt
 
-import thread
 import time
 import hashlib
 import websocket
@@ -13,9 +12,8 @@ import uuid
 import os
 import sys
 
-
-access_id = "在此填入access_id"
-access_key = "在此填入access_key"
+access_id = ""
+access_key = ""
 url = "wss://asr.yuzhix.com/api/DecodeAudio?"
 
 
@@ -41,8 +39,7 @@ class Clinent():
 
 def md5hash(stringT):
     # md5加密
-    sign = hashlib.md5()
-    sign.update(stringT)
+    sign = hashlib.md5(stringT.encode("utf8"))
     return sign.hexdigest()
 
 
@@ -64,8 +61,6 @@ def decode(rec):
 
 def testCase():
     # 找到test-case文件夹
-    reload(sys)
-    sys.setdefaultencoding('utf-8')
     return os.path.dirname(os.getcwd()) + "/test-case"
 
 
