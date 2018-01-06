@@ -2,7 +2,6 @@
 # 请提前安装第三方库websocket-client(pip3 install websocket-client)
 # access_id 与 access_ke 已留空，填入即可
 # 运行时请把pcm文件放入test-case文件夹内
-# 脚本会自行生成目录文件wavlist.txt
 
 import time
 import hashlib
