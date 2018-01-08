@@ -13,7 +13,7 @@
 
   * 请求参数 （用于进行身份验证，参见 __身份验证机制__ ）
   - 报头 （用于告知asr音频相关信息， 参见 __报头信息__ ）
-  - 二进制的报文Body（Audio buffer， __单通道音频, 16bit, 采样率16KHz, 单次报文长度建议为6400字节__ ） 
+  - 二进制的报文Body（pcm格式音频， __单通道音频, 16bit, 采样率16KHz, 单次报文长度建议为6400字节__ ） 
 
 ### 报头信息
   报头信息仅需包含以下字段:
@@ -51,7 +51,7 @@
 ```
   5. 完整url示例：
   ```
-wss://asr.yuzhix.com/api/DecodeAudio?access_id=xxxxx&nonce_str=yyyyy&uuid=0000&sign=md5hash_value
+wss://asr.yuzhix.com/api/DecodeAudio?access_id=xxxxx&nonce_str=yyyyy&request_id=0000&sign=md5hash_value
 ```
 ### 识别结果返回
 请求结果以application/json格式在Response Body中返回；其他的HTTP错误码表示识别失败，具体的错误消息以application/json格式在Response Body中返回。
